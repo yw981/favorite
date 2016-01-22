@@ -13,6 +13,8 @@
 
 Route::get('/', 'FavoriteController@create');
 
+Route::get('create', 'FavoriteController@create');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,5 +27,7 @@ Route::get('/', 'FavoriteController@create');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+
+
 });
