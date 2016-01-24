@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'FavoriteController@create');
+//Route::get('/', 'FavoriteController@create');
 
-Route::get('create', 'FavoriteController@create');
+
 
 
 /*
@@ -26,19 +26,21 @@ Route::get('create', 'FavoriteController@create');
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-
-    Route::get('auth/login','Auth\AuthController@getLogin');
-    Route::post('auth/login','Auth\AuthController@postLogin');
-    Route::get('auth/register','Auth\AuthController@getRegister');
-    Route::post('auth/register','Auth\AuthController@postRegister');
-    Route::get('auth/logout','Auth\AuthController@getLogout');
-
-});
+//Route::group(['middleware' => ['web']], function () {
+//
+//    Route::get('auth/login','Auth\AuthController@getLogin');
+//    Route::post('auth/login','Auth\AuthController@postLogin');
+//    Route::get('auth/register','Auth\AuthController@getRegister');
+//    Route::post('auth/register','Auth\AuthController@postRegister');
+//    Route::get('auth/logout','Auth\AuthController@getLogout');
+//
+//});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/', 'FavoriteController@index');
+    Route::get('/favorites', 'FavoriteController@index');
+    Route::get('/create', 'FavoriteController@create');
+    Route::post('/create', 'FavoriteController@store');
 });
