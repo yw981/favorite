@@ -27,9 +27,29 @@ class FavoriteController extends Controller
     }
 
     public function store(Request $request){
+        // TODO 判断未登录
         $user = $request->user();
         $input = $request->all();
-        //dd($request->all());
+
+
+
+        if(isset($input['autoTitle'])||!isset($input['title'])){
+            $urlContent = file_get_contents($input['url']);
+            // TODO 编码问题
+            if(strpos($urlContent,'charset=gb2312')!==false||strpos($urlContent,'charset="gb2312"')!==false){
+                $urlContent = iconv("gb2312","utf-8",$urlContent);
+            }
+            elseif(strpos($urlContent,'charset=gbk')!==false||strpos($urlContent,'charset="gbk"')!==false){
+                $urlContent = iconv("gbk","utf-8",$urlContent);
+            }
+
+            $posBegin = strpos($urlContent,'<title>')+7;
+            $posEnd = strpos($urlContent,'</title>');
+            $length = $posEnd - $posBegin;
+            $input['title'] = substr($urlContent,$posBegin,$length);
+        }
+
+//dd($input);
         $input['user_id'] = $user->id;
         $input['published_at'] = Carbon::now();
         //dd($input);
