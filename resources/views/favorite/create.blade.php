@@ -16,4 +16,5 @@
            {!! Form::submit('确定',['class'=>'btn btn-success form-control']) !!}
        </div>
     {!! Form::close() !!}
+
 @endsection
