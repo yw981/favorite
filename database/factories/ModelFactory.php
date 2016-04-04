@@ -19,3 +19,27 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Tag::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(App\Favorite::class, function (Faker\Generator $faker) {
+    $user_ids = App\User::lists('id')->toArray();
+    return [
+        'user_id' => $faker->randomElement($user_ids),
+        'url' => $faker->url,
+        'title' => $faker->sentence,
+    ];
+});
+
+$factory->define(App\Favorite::class, function (Faker\Generator $faker) {
+    $user_ids = App\User::lists('id')->toArray();
+    return [
+        'user_id' => $faker->randomElement($user_ids),
+        'url' => $faker->url,
+        'title' => $faker->sentence,
+    ];
+});
