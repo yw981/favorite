@@ -35,11 +35,3 @@ $factory->define(App\Favorite::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Favorite::class, function (Faker\Generator $faker) {
-    $user_ids = App\User::lists('id')->toArray();
-    return [
-        'user_id' => $faker->randomElement($user_ids),
-        'url' => $faker->url,
-        'title' => $faker->sentence,
-    ];
-});
