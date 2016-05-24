@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Favorite;
+use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,23 @@ use App\Http\Controllers\Controller;
 class FavoriteController extends Controller
 {
     public function index(){
+        //dd($tag_id);
         $favorites = Favorite::all();
+        $tags = Tag::all();
         //直接return $favorites就是JSON
-        return view('favorite.index',compact('favorites'));
+        return view('favorite.index',compact('favorites','tags'));
+    }
+
+    public function tag($id){
+        //
+        $tag = Tag::find($id);
+
+        $favorites = $tag->favorites();
+        dd($favorites);
+        $tags = Tag::all();
+        $curTagId = $id;
+        //直接return $favorites就是JSON
+        return view('favorite.index',compact('favorites','tags','curTagId'));
     }
 
     public function create(){
@@ -22,7 +37,9 @@ class FavoriteController extends Controller
             return redirect('/login');
         }
         else{
-            return view('favorite.create');
+            $tags = Tag::lists('name','id');
+            //dd($tags);
+            return view('favorite.create',compact('tags'));
         }
     }
 
@@ -31,16 +48,17 @@ class FavoriteController extends Controller
         $user = $request->user();
         $input = $request->all();
 
-
+        //dd($input);
 
         if(isset($input['autoTitle'])||!isset($input['title'])){
             $urlContent = file_get_contents($input['url']);
             // TODO 编码问题
             if(strpos($urlContent,'charset=gb2312')!==false||strpos($urlContent,'charset="gb2312"')!==false){
-                $urlContent = iconv("gb2312","utf-8",$urlContent);
+                $urlContent = iconv("gb2312","utf-8//IGNORE",$urlContent);
             }
             elseif(strpos($urlContent,'charset=gbk')!==false||strpos($urlContent,'charset="gbk"')!==false){
-                $urlContent = iconv("gbk","utf-8",$urlContent);
+                $urlContent = iconv("gbk","utf-8//IGNORE",$urlContent);
+                //iconv('UTF-8', 'GBK//IGNORE', unescape(isset($_GET['str'])? $_GET['str']:''));
             }
 
             $posBegin = strpos($urlContent,'<title>')+7;
@@ -53,7 +71,8 @@ class FavoriteController extends Controller
         $input['user_id'] = $user->id;
         $input['published_at'] = Carbon::now();
         //dd($input);
-        Favorite::create($input);
+        $favorite = Favorite::create($input);
+        $favorite->tags()->attach($input['tag_list']);
         return redirect('/favorites');
     }
 }

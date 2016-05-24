@@ -1,3 +1,12 @@
 .navbar {
     margin-bottom: 0px;
 }
+
+/* for Favorite.index only */
+.label {
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all /opera15+*/
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}

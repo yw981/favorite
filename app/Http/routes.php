@@ -43,4 +43,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/favorites', 'FavoriteController@index');
     Route::get('/create', 'FavoriteController@create');
     Route::post('/create', 'FavoriteController@store');
+
+    Route::get('/tag/{id}','FavoriteController@tag');
 });

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link rel='stylesheet' href="/css/select2.min.css" type='text/css' media='all'/>
+@endsection
 @section('content')
     <div class="container">
           <div class="row">
@@ -7,10 +10,16 @@
                 {!! Form::open() !!}
                 <div class="form-group">
                     {!! Form::label('title','标题:') !!}
-                    <label>{!! Form::checkbox('autoTitle', '1', true) !!}show</label>
-
+                    <label>{!! Form::checkbox('autoTitle', '1', true) !!}自动获取网页标题</label>
                     {!! Form::text('title',null,['class'=>'form-control']) !!}
                 </div>
+                {{--{!! Form::hidden('tags','def',['id'=>'tags']) !!}--}}
+                {{--@foreach($tags as $tag)--}}
+                    {{--<span class="label label-default" onclick="select(this)">{{ $tag->name  }}</span>--}}
+                {{--@endforeach--}}
+                {!! Form::label('tag_list','选择标签') !!}
+                {!! Form::select('tag_list[]',$tags,null,['class'=>'form-control js-example-basic-multiple','multiple'=>'multiple']) !!}
+
                 <div class="form-group">
                     {!! Form::label('url','URL:') !!}
                     {!! Form::url('url',null,['class'=>'form-control']) !!}
@@ -24,4 +33,16 @@
     </div>
 
 
+
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $(".js-example-basic-multiple").select2({
+                placeholder: "添加标签"
+            });
+        });
+    </script>
+    <script src="/js/select2.min.js"></script>
 @endsection
