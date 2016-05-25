@@ -13,11 +13,14 @@
                     <label>{!! Form::checkbox('autoTitle', '1', true) !!}自动获取网页标题</label>
                     {!! Form::text('title',null,['class'=>'form-control']) !!}
                 </div>
-                {{--{!! Form::hidden('tags','def',['id'=>'tags']) !!}--}}
-                {{--@foreach($tags as $tag)--}}
-                    {{--<span class="label label-default" onclick="select(this)">{{ $tag->name  }}</span>--}}
-                {{--@endforeach--}}
-                {!! Form::label('tag_list','选择标签') !!}
+                <div class="form-group">
+                    {!! Form::label('tag_list','选择标签') !!}
+                    <a href="{{ url('/tag/create') }}">
+                        <button type="button" class="btn btn-info pull-right">
+                            + 添加标签
+                        </button>
+                    </a>
+                </div>
                 {!! Form::select('tag_list[]',$tags,null,['class'=>'form-control js-example-basic-multiple','multiple'=>'multiple']) !!}
 
                 <div class="form-group">

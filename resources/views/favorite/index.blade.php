@@ -13,26 +13,27 @@
     </div>
 
     <div class="container">
-        @foreach($tags as $tag)
-            <a href="{{ url('/tag/'.$tag->id) }}"><span class="label @if($tag->id == @$curTagId) label-success @else label-default @endif" onclick="select(this)">{{ $tag->name  }}</span></a>
-        @endforeach
-
+        @if(count($tags)>0)
+            <h4>Tags:
+                @foreach($tags as $tag)
+                    <a href="{{ url('/tag/'.$tag->id) }}"><span class="label @if($tag->id == @$curTagId) label-success @else label-default @endif" onclick="select(this)">{{ $tag->name  }}</span></a>
+                @endforeach
+            </h4>
+            <br />
+        @endif
         @foreach($favorites as $favorite)
             <h2>{{ $favorite->title }}</h2>
-
             <favorite>
-                    <span>{{ $favorite->created_at->diffForHumans() }}</span>
-                    @if($favorite->tags)
-                        @foreach($favorite->tags as $tag)
-                            <span class="badge">{{ $tag->name }}</span>
-                        @endforeach
-                    @endif
+                @if($favorite->tags)
+                    @foreach($favorite->tags as $tag)
+                        <span class="label @if($tag->id == @$curTagId) label-info @else label-default @endif" onclick="select(this)">{{ $tag->name  }}</span>
+                    @endforeach
+                @endif
+                <span class="pull-right">{{ $favorite->created_at->diffForHumans() }}</span>
                 <div class="body">
                     <a href="{{ $favorite->url }}" target="_blank">{{ $favorite->url }}</a>
                 </div>
             </favorite>
         @endforeach
     </div>
-
-
 @endsection

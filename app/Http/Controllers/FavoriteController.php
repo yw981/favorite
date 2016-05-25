@@ -13,24 +13,14 @@ use App\Http\Controllers\Controller;
 class FavoriteController extends Controller
 {
     public function index(){
-        //dd($tag_id);
         $favorites = Favorite::all();
         $tags = Tag::all();
+        //dd($tags);
         //直接return $favorites就是JSON
         return view('favorite.index',compact('favorites','tags'));
     }
 
-    public function tag($id){
-        //
-        $tag = Tag::find($id);
 
-        $favorites = $tag->favorites();
-        dd($favorites);
-        $tags = Tag::all();
-        $curTagId = $id;
-        //直接return $favorites就是JSON
-        return view('favorite.index',compact('favorites','tags','curTagId'));
-    }
 
     public function create(){
         if(\Auth::guest()){
