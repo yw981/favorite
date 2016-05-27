@@ -30,7 +30,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/create', 'FavoriteController@create');
     Route::post('/create', 'FavoriteController@store');
 
-    Route::resource('tag','TagController');
+    Route::get('/tag/{id}', 'TagController@tag');
+    Route::get('/tag/create', 'TagController@create');
+    Route::post('/tag/store', 'TagController@store');
+    //Route::resource('tag','TagController');
 });
 
 

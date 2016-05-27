@@ -24,9 +24,8 @@ class TagController extends Controller
             return redirect('/login');
         }
         else{
-            //$tags = Tag::lists('name','id');
-            //dd($tags);
             $input = $request->all();
+            //dd($input);
             Tag::create($input);
             return redirect('/tag/create');
         }

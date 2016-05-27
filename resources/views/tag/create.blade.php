@@ -5,8 +5,8 @@
             <div class="col-md-9" role="main">
                 <div class="form-group">
                     <h1>添加标签</h1>
-                    <a href="{{ url('/') }}" class="pull-right">
-                        <button type="button" class="btn btn-info">返回首页</button>
+                    <a href="{{ url('/create') }}" class="pull-right">
+                        <button type="button" class="btn btn-info">返回添加收藏</button>
                     </a>
                 </div>
                 @if(count($tags)>0)
@@ -17,7 +17,7 @@
                     </h4>
                     <br />
                 @endif
-                {!! Form::open() !!}
+                {!! Form::open(array('url' => 'tag/store')) !!}
                 <div class="form-group">
                     {!! Form::label('name','标签名:') !!}
                     {!! Form::text('name',null,['class'=>'form-control']) !!}
