@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 class FavoriteController extends Controller
 {
     public function index(){
-        $favorites = Favorite::all();
+        $favorites = Favorite::latest()->get();
         $tags = Tag::all();
         //dd($tags);
         //直接return $favorites就是JSON
@@ -62,7 +62,7 @@ class FavoriteController extends Controller
         $input['published_at'] = Carbon::now();
         //dd($input);
         $favorite = Favorite::create($input);
-        $favorite->tags()->attach($input['tag_list']);
+        if(isset($input['tag_list'])) $favorite->tags()->attach($input['tag_list']);
         return redirect('/favorites');
     }
 }
